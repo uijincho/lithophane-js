@@ -77,7 +77,8 @@ export async function generateLithophaneSTL(image, params = {}) {
   const exporter = new STLExporter();
   const stlString = exporter.parse(mesh);
 
-  return downloadSTL(stlString);
+  downloadSTL(stlString, params.outputName || 'lithophane.stl');
+  return stlString;
 }
 
 function pushQuad(vertices, indices, quad, flip = false) {
@@ -101,12 +102,12 @@ function loadImage(file) {
   });
 }
 
-function downloadSTL(stlString) {
+function downloadSTL(stlString, fileName = 'lithophane.stl') {
   const blob = new Blob([stlString], { type: 'application/sla' });
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = 'lithophane.stl';
+  link.download = fileName;
   link.click();
   return stlString;
 }

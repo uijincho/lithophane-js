@@ -5,10 +5,10 @@ function App() {
   const [imageFile, setImageFile] = useState(null);
 
   // Slider states
-  const [scale, setScale] = useState(0.5);
+  const [scale, setScale] = useState(0.75);
   const [layerHeight, setLayerHeight] = useState(0.2);
   const [numLevels, setNumLevels] = useState(10);
-  const [reductionFactor, setReductionFactor] = useState(0.2);
+  const [reductionFactor, setReductionFactor] = useState(0.15);
 
   const handleFileChange = (e) => {
     setImageFile(e.target.files[0]);
@@ -29,7 +29,7 @@ function App() {
 
   return (
     <div style={{ padding: '20px', maxWidth: '500px', margin: 'auto' }}>
-      <h1>Test Lithophane Generator</h1>
+      <h1>Lithophane Generator</h1>
 
       <input type="file" accept="image/*" onChange={handleFileChange} />
       <br /><br />
