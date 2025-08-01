@@ -9,7 +9,6 @@ export async function generateLithophaneSTL(image, params = {}) {
     reductionFactor = 0.2
   } = params;
 
-  // Load image into canvas
   const img = await loadImage(image);
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
@@ -22,9 +21,7 @@ export async function generateLithophaneSTL(image, params = {}) {
   const width = canvas.width;
   const height = canvas.height;
 
-  // Convert to grayscale and build height map
   const baseThickness = layerHeight;
-  const maxHeight = (numLevels - 1) * layerHeight;
   const discreteHeights = Array.from({ length: numLevels }, (_, i) => baseThickness + i * layerHeight);
   const heightMap = [];
 
@@ -34,23 +31,19 @@ export async function generateLithophaneSTL(image, params = {}) {
       const idx = (y * width + x) * 4;
       const r = pixels[idx], g = pixels[idx + 1], b = pixels[idx + 2];
       let gray = 0.299 * r + 0.587 * g + 0.114 * b;
-      gray = gray / 255.0;
-      gray = 1.0 - gray; // Invert
+      gray = 1.0 - (gray / 255.0);
       const level = Math.min(numLevels - 1, Math.floor(gray * numLevels));
       row.push(discreteHeights[level]);
     }
     heightMap.push(row);
   }
 
-  // Create geometry
   const geometry = new THREE.BufferGeometry();
   const vertices = [];
-  const normals = [];
   const indices = [];
 
   for (let y = 0; y < height - 1; y++) {
     for (let x = 0; x < width - 1; x++) {
-      const i = y * width + x;
       const z00 = heightMap[y][x];
       const z01 = heightMap[y][x + 1];
       const z11 = heightMap[y + 1][x + 1];
@@ -67,16 +60,8 @@ export async function generateLithophaneSTL(image, params = {}) {
       const b11 = new THREE.Vector3(v11.x, v11.y, baseZ);
       const b10 = new THREE.Vector3(v10.x, v10.y, baseZ);
 
-      const quad = [v00, v01, v11, v10];
-      const base = [b00, b01, b11, b10];
-
-      // Top
-      pushQuad(vertices, indices, quad);
-
-      // Bottom
-      pushQuad(vertices, indices, base, true);
-
-      // Sides
+      pushQuad(vertices, indices, [v00, v01, v11, v10]);       // Top
+      pushQuad(vertices, indices, [b00, b01, b11, b10], true); // Bottom
       pushQuad(vertices, indices, [v00, v01, b01, b00]);
       pushQuad(vertices, indices, [v01, v11, b11, b01]);
       pushQuad(vertices, indices, [v11, v10, b10, b11]);
