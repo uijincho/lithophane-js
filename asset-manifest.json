@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/lithophane-js/static/css/main.e6c13ad2.css",
-    "main.js": "/lithophane-js/static/js/main.c87e6f94.js",
+    "main.js": "/lithophane-js/static/js/main.e39e13aa.js",
     "static/js/453.0d0e8f1c.chunk.js": "/lithophane-js/static/js/453.0d0e8f1c.chunk.js",
     "index.html": "/lithophane-js/index.html",
     "main.e6c13ad2.css.map": "/lithophane-js/static/css/main.e6c13ad2.css.map",
-    "main.c87e6f94.js.map": "/lithophane-js/static/js/main.c87e6f94.js.map",
+    "main.e39e13aa.js.map": "/lithophane-js/static/js/main.e39e13aa.js.map",
     "453.0d0e8f1c.chunk.js.map": "/lithophane-js/static/js/453.0d0e8f1c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.c87e6f94.js"
+    "static/js/main.e39e13aa.js"
   ]
 }
