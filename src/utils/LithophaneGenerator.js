@@ -102,7 +102,7 @@ function loadImage(file) {
   });
 }
 
-function downloadSTL(stlString, fileName = 'lithophane.stl') {
+function downloadSTL(stlString, fileName) {
   const blob = new Blob([stlString], { type: 'application/sla' });
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
