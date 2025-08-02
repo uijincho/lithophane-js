@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { generateLithophaneSTL } from './utils/LithophaneGenerator';
-import STLPreview from './STLPreview';
+import STLPreview from './components/STLPreview';
 
 function App() {
   const [imageFile, setImageFile] = useState(null);
@@ -31,12 +31,6 @@ function App() {
     const blob = new Blob([stlString], { type: 'application/sla' });
     const url = URL.createObjectURL(blob);
     setStlUrl(url);
-
-    // Optional: automatic download
-    // const link = document.createElement('a');
-    // link.href = url;
-    // link.download = 'lithophane.stl';
-    // link.click();
   };
 
   return (
