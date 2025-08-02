@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { generateLithophaneSTL } from './utils/LithophaneGenerator';
-import STLPreview from './components/STLPreview';
 
 function App() {
   const [imageFile, setImageFile] = useState(null);
@@ -91,9 +90,6 @@ function App() {
       <button onClick={handleGenerate} style={{ marginTop: '20px' }}>
         Generate Lithophane STL
       </button>
-
-      {/* STL Preview Component */}
-      <STLPreview url={stlUrl} />
     </div>
   );
 }
