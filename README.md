@@ -1,70 +1,34 @@
-# Getting Started with Create React App
+# Image to Lithophane STL Generator (React + JS)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Lithophane Example](lithophaneexample.png)
 
-## Available Scripts
+This web-based tool allows users to convert a grayscale image into an STL file for 3D printing as a lithophane. A lithophane is an embossed, translucent image that is visible when illuminated from behind. The web app creates a 3D model with varying thickness based on the brightness of the pixels in the image.
 
-In the project directory, you can run:
+Built with **React** and **JavaScript**, this project brings a traditionally offline lithophane generation process into a fast and user-friendly web interface.
 
-### `npm start`
+## ⭐ Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Converts any image into a 3D lithophane STL.
+- Adjusts the model’s thickness based on brightness (lighter areas are thinner, darker areas are thicker).
+- Allows scaling and reducing the resolution of the image for optimized 3D printing.
+- Configurable parameters for lithophane size, thickness, and detail level.
+- Outputs STL files ready for 3D printing in millimeters.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🚀 Getting Started
 
-### `npm test`
+ 1. Visit the [website](uijincho.github.io/lithophane-js)
+ 2. Upload your image
+ 3. Adjust the parameters to your liking
+ 4. Generate the lithophane STL!
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧮 3D Printing Recommendations
+- Print Orientation: Always print lithophanes vertically to maximize detail.
+- Material: Translucent filaments like white or clear PLA work best for lithophanes.
+- Layer Height: Use a layer height of 0.1-0.2 mm for best results.
+- Infill: Higher infill percentages (around 100%) will provide better light diffusion through the lithophane.
 
-### `npm run build`
+## 🧠 License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📝 Contributing
+Feel free to submit issues or pull requests! Contributions are welcome.
