@@ -1,6 +1,10 @@
 # Image to Lithophane STL Generator (React + JS)
 
 ![Lithophane Example](lithophaneexample.png)
+<p align="center" >
+  <img width="60%" src=lithophanewebsite.png>
+</p>
+
 
 This web-based tool allows users to convert a grayscale image into an STL file for 3D printing as a lithophane. A lithophane is an embossed, translucent image that is visible when illuminated from behind. The web app creates a 3D model with varying thickness based on the brightness of the pixels in the image.
 
