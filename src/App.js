@@ -1,35 +1,42 @@
 import React, { useState } from 'react';
 import { generateLithophaneSTL } from './utils/LithophaneGenerator';
+import STLPreview from './STLPreview';
 
 function App() {
   const [imageFile, setImageFile] = useState(null);
-  const [previewURL, setPreviewURL] = useState(null);
+  const [stlUrl, setStlUrl] = useState(null);
 
-  // Slider states
   const [scale, setScale] = useState(0.75);
   const [layerHeight, setLayerHeight] = useState(0.2);
   const [numLevels, setNumLevels] = useState(10);
   const [reductionFactor, setReductionFactor] = useState(0.15);
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImageFile(file);
-      setPreviewURL(URL.createObjectURL(file));
-    }
+    setImageFile(e.target.files[0]);
   };
 
-  const handleGenerate = () => {
-    if (imageFile) {
-      generateLithophaneSTL(imageFile, {
-        scale,
-        layerHeight,
-        numLevels,
-        reductionFactor,
-      });
-    } else {
+  const handleGenerate = async () => {
+    if (!imageFile) {
       alert('Please upload an image first.');
+      return;
     }
+
+    const stlString = await generateLithophaneSTL(imageFile, {
+      scale,
+      layerHeight,
+      numLevels,
+      reductionFactor,
+    });
+
+    const blob = new Blob([stlString], { type: 'application/sla' });
+    const url = URL.createObjectURL(blob);
+    setStlUrl(url);
+
+    // Optional: automatic download
+    // const link = document.createElement('a');
+    // link.href = url;
+    // link.download = 'lithophane.stl';
+    // link.click();
   };
 
   return (
@@ -39,19 +46,6 @@ function App() {
       <input type="file" accept="image/*" onChange={handleFileChange} />
       <br /><br />
 
-      {/* Preview Section */}
-      {previewURL && (
-        <div>
-          <h3>Preview:</h3>
-          <img
-            src={previewURL}
-            alt="Preview"
-            style={{ maxWidth: '100%', maxHeight: '300px', marginBottom: '20px' }}
-          />
-        </div>
-      )}
-
-      {/* Sliders */}
       <div>
         <label>Scale: {scale.toFixed(2)}</label>
         <input
@@ -103,6 +97,9 @@ function App() {
       <button onClick={handleGenerate} style={{ marginTop: '20px' }}>
         Generate Lithophane STL
       </button>
+
+      {/* STL Preview Component */}
+      <STLPreview url={stlUrl} />
     </div>
   );
 }
