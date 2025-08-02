@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { STLExporter } from 'three/examples/jsm/exporters/STLExporter.js';
 
-export async function generateLithophaneSTL(image, params = {}) {
+export async function generateLithophaneSTL(image, params = {}, setStatus = () => {}) {
   const {
     scale = 0.5,
     layerHeight = 0.2,
@@ -10,20 +10,26 @@ export async function generateLithophaneSTL(image, params = {}) {
   } = params;
 
   const img = await loadImage(image);
+  setStatus("Image found...");
+
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   canvas.width = img.width * reductionFactor;
   canvas.height = img.height * reductionFactor;
+  setStatus("Image resolution reduced...");
   ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
+  setStatus("Normalized...");
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const pixels = imageData.data;
   const width = canvas.width;
   const height = canvas.height;
 
+  setStatus(`Height map created with ${numLevels} discrete levels...`);
   const baseThickness = layerHeight;
   const discreteHeights = Array.from({ length: numLevels }, (_, i) => baseThickness + i * layerHeight);
   const heightMap = [];
+  setStatus("Dimensions set...");
 
   for (let y = 0; y < height; y++) {
     const row = [];
@@ -38,6 +44,7 @@ export async function generateLithophaneSTL(image, params = {}) {
     heightMap.push(row);
   }
 
+  setStatus("Vertices set...");
   const geometry = new THREE.BufferGeometry();
   const vertices = [];
   const indices = [];
@@ -69,6 +76,8 @@ export async function generateLithophaneSTL(image, params = {}) {
     }
   }
 
+  setStatus("Faces array created...");
+
   geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices.flatMap(v => [v.x, v.y, v.z]), 3));
   geometry.setIndex(indices);
   geometry.computeVertexNormals();
@@ -76,10 +85,14 @@ export async function generateLithophaneSTL(image, params = {}) {
   const mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial());
   const exporter = new STLExporter();
   const stlString = exporter.parse(mesh);
+  setStatus("Mesh created...");
 
   const inputName = image.name ? image.name.replace(/\.[^/.]+$/, '') : 'lithophane';
   const fileName = (params.outputName || `${inputName}-lithophane.stl`);
   downloadSTL(stlString, fileName);
+  setStatus(`STL file saved as ${fileName}`);
+
+  return stlString; 
 }
 
 function pushQuad(vertices, indices, quad, flip = false) {
@@ -110,5 +123,4 @@ function downloadSTL(stlString, fileName) {
   link.href = url;
   link.download = fileName;
   link.click();
-  return stlString;
 }

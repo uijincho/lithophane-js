@@ -37,12 +37,12 @@ input {
       padding: 3rem;
       border-radius: 50px;
       gap: 2rem;
-      max-width: 32rem;
+      max-width: 33rem;
       width: 100%;
     }
 
     input[type="range"] {
-      width: 200px;
+      width: 275px;
       float: right;
     }
     
@@ -90,6 +90,7 @@ input {
   background: #9f2a24;
   cursor: pointer;
 }
+
 
 .slider::-moz-range-progress {
   background: #9f2a24;
