@@ -3,6 +3,7 @@ import { generateLithophaneSTL } from './utils/LithophaneGenerator';
 
 function App() {
   const [imageFile, setImageFile] = useState(null);
+  const [previewURL, setPreviewURL] = useState(null);
 
   // Slider states
   const [scale, setScale] = useState(0.75);
@@ -11,7 +12,11 @@ function App() {
   const [reductionFactor, setReductionFactor] = useState(0.15);
 
   const handleFileChange = (e) => {
-    setImageFile(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setPreviewURL(URL.createObjectURL(file));
+    }
   };
 
   const handleGenerate = () => {
@@ -34,6 +39,19 @@ function App() {
       <input type="file" accept="image/*" onChange={handleFileChange} />
       <br /><br />
 
+      {/* Preview Section */}
+      {previewURL && (
+        <div>
+          <h3>Preview:</h3>
+          <img
+            src={previewURL}
+            alt="Preview"
+            style={{ maxWidth: '100%', maxHeight: '300px', marginBottom: '20px' }}
+          />
+        </div>
+      )}
+
+      {/* Sliders */}
       <div>
         <label>Scale: {scale.toFixed(2)}</label>
         <input
@@ -75,7 +93,7 @@ function App() {
         <input
           type="range"
           min="0.01"
-          max="1"
+          max=".5"
           step="0.01"
           value={reductionFactor}
           onChange={(e) => setReductionFactor(parseFloat(e.target.value))}
