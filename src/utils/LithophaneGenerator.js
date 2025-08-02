@@ -77,8 +77,9 @@ export async function generateLithophaneSTL(image, params = {}) {
   const exporter = new STLExporter();
   const stlString = exporter.parse(mesh);
 
-  downloadSTL(stlString, params.outputName || 'lithophane.stl');
-  return stlString;
+  const inputName = image.name ? image.name.replace(/\.[^/.]+$/, '') : 'lithophane';
+  const fileName = (params.outputName || `${inputName}-lithophane.stl`);
+  downloadSTL(stlString, fileName);
 }
 
 function pushQuad(vertices, indices, quad, flip = false) {
